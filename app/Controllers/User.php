@@ -24,7 +24,7 @@ class User extends BaseController
     public function create()
 	{
 		if( !$this->validate([
-			'username' 	=> 'required|is_unique[m_users.username]',
+			'email' 	=> 'required|is_unique[m_users.email]',
 			'password' 	=> 'required|min_length[6]',
 			'name'	   	=> 'required',
 			'address'	=> 'required',
@@ -36,7 +36,7 @@ class User extends BaseController
 		}
 
 		$insert = [
-            'username' => $this->request->getVar('username'),
+            'email' => $this->request->getVar('email'),
             'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
 			'nama' => $this->request->getVar('nama'),
 			'naaddressme' => $this->request->getVar('address'),
@@ -59,7 +59,7 @@ class User extends BaseController
     public function update($id)
 	{
 		if (! $this->validate([
-            'username' => 'permit_empty|is_unique[m_users.username,id,'.$id.']',
+            'email' => 'permit_empty|is_unique[m_users.email,id,'.$id.']',
             'password' => 'permit_empty|min_length[6]',
 			'name' => 'permit_empty',
 			'address' => 'permit_empty',
@@ -78,7 +78,7 @@ class User extends BaseController
 		}
 		
         $update = [
-            'username' => $this->request->getVar('username') ? $this->request->getVar('username') : $exist['username'],
+            'email' => $this->request->getVar('email') ? $this->request->getVar('email') : $exist['email'],
             'password' => $this->request->getVar('password') ? password_hash($this->request->getVar('password'), PASSWORD_DEFAULT) : $exist['password'],
 			'name' => $this->request->getVar('name') ? $this->request->getVar('name') : $exist['name'],
 			'naaddressme' => $this->request->getVar('address')  ? $this->request->getVar('address') : $exist['address'],
